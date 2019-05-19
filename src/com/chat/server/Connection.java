@@ -51,19 +51,19 @@ class Connection implements Runnable {
 
       String welcome = 
 	"Connection made from host: "+hostname+"\nEverybody say hello";
-      String student = server.getStudentName(hostname);
-      if (student != null) welcome += " to "+student;
+      String employee = server.getEmployeeName(hostname);
+      if (employee != null) welcome += " to "+employee;
       welcome+="!\n";
       server.sendToAllClients(welcome);
-      System.out.println("Connection made "+student+"@"+hostname);
-      sendMessage("Welcome "+student+" the passphrase is "+magic+"\n");
+      System.out.println("Connection made "+employee+"@"+hostname);
+      sendMessage("Welcome "+employee+" the passphrase is "+magic+"\n");
       String input = null;
 
       while ((input = in.readLine()) != null) {
 	if (input.indexOf(magic) != -1) {
-//	  server.playMagicSound();
-	  sendMessage("Congratulations "+student+" you sent the passphrase!\n");
-	  System.out.println(student+" sent the passphrase!");
+	  //server.playMagicSound();
+	  sendMessage("Congratulations "+employee+" you sent the passphrase!\n");
+	  System.out.println(employee+" sent the passphrase!");
 	} else {
 	  server.sendToAllClients(input+"\n");
 	}

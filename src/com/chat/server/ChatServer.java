@@ -34,7 +34,7 @@ public class ChatServer {
     private int maxConnections = DEFAULT_MAX_CONNECTIONS;
     private String hostfile = DEFAULT_HOST_FILE;
     private List<Connection> connections = null;
-    private Map<String,String> hostToStudentMap = null;
+    private Map<String,String> hostToEmployeeMap = null;
 
 
   //
@@ -45,8 +45,8 @@ public class ChatServer {
         return magic;
     }
 
-    String getStudentName(String host) {
-        return hostToStudentMap.get(host);
+    String getEmployeeName(String host) {
+        return hostToEmployeeMap.get(host);
     }
 
     void sendToAllClients(String message) {
@@ -83,13 +83,12 @@ public class ChatServer {
         if (connections != null) maxConnections = Integer.parseInt(connections);
 
         this.connections = new ArrayList<Connection>(maxConnections);
-        this.hostToStudentMap = new HashMap<String,String>(15);
+        this.hostToEmployeeMap = new HashMap<String,String>(15);
 
         System.out.println("Server settings:\n\tPort="+port+"\n\tMax Backlog="+
                            backlog+"\n\tMax Connections="+maxConnections+
                            "\n\tHost File="+hostfile);
 
-        //createHostList();
 
 
         // Begin the processing cycle
@@ -111,9 +110,9 @@ public class ChatServer {
               continue;
             }
             String host = aLine.substring(0,spaceIndex);
-            String student = aLine.substring(spaceIndex+1);
-            System.out.println("Read: "+student+"@"+host);
-            hostToStudentMap.put(host,student);
+            String employee = aLine.substring(spaceIndex+1);
+            System.out.println("Read: "+employee+"@"+host);
+            hostToEmployeeMap.put(host,employee);
           }
         } catch(Exception e) {
             e.printStackTrace();
