@@ -28,7 +28,9 @@ public class ChatClient {
     private PrintStream serverOut = null;
 
     private void doConnect() {
+        // Задаём IP адрес сервера
         String serverIP = System.getProperty("serverIP", "127.0.0.1");
+        // Задаём рабочий порт сервера
         String serverPort = System.getProperty("serverPort", "2000");
 
         try {
@@ -38,7 +40,7 @@ public class ChatClient {
             serverIn = new BufferedReader(isr);
             serverOut = new PrintStream(connection.getOutputStream());
             Thread t = new Thread(new RemoteReader());
-            t.start(); 
+            t.start();
         } catch (Exception e) {
             System.err.println("ERROR: unable to connect to server");
             e.printStackTrace();
@@ -94,16 +96,16 @@ public class ChatClient {
         @Override
         public void run() {
             try {
-                while(true){
-                    String nextLine=serverIn.readLine();
-                    output.append(nextLine+"\n");
+                while (true) {
+                    String nextLine = serverIn.readLine();
+                    output.append(nextLine + "\n");
                 }
             } catch (Exception e) {
                 System.err.println("ERROR: can't read from the server!");
                 e.printStackTrace();
             }
         }
-        
+
     }
 
     private class SendHandler implements ActionListener {
@@ -112,11 +114,10 @@ public class ChatClient {
         public void actionPerformed(ActionEvent e) {
             String message = input.getText();
             //output.append(message + "\n");
-            serverOut.print("New message: "+message+"\n");
+            serverOut.print("Новое сообщение: " + message + "\n");
             input.setText("");
         }
 
     }
 
 }
-
